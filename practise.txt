@@ -1,0 +1,85 @@
+Assignment - all done together in one file
+
+use [practise-project]
+-- create a table named trainee
+create table trainee(
+	id int not null,
+	name varchar(20) not null,
+	age int not null,
+	salary int not null,
+	location varchar(20) not null
+);
+-- insert values into trainee table
+
+insert into trainee 
+values(1,'Tahir',22,10000,'Mumbai'),
+	  (2,'Rahul',22,10000,'Banglore'),
+	  (3,'Arnav',22,10000,'Lucknow'),
+	  (4,'vasundra',22,10000,'Hydrebad'),
+	  (5,'Sandeep',22,10000,'chennai')
+
+---- let's view the table 
+
+select * from trainee
+
+--- executing queries with where clause 
+--- 1. select name and age of trainee who is from mumbai 
+
+select name,age from trainee where location='Mumbai'
+
+--2. select the details of employee whose salary is between 5000 to 15000 
+
+select * from trainee where salary between 5000 and 15000;
+
+--3. use of logical operators 
+
+select * from trainee where age=22 or location='Banglore'
+select * from trainee where name='Tahir' and location='Mumbai'
+select * from trainee where name!='Tahir'
+
+---4 sort the records in descending order 
+
+select * from trainee order by id desc;
+select * from trainee order by name desc;
+
+---5 select the name starting with 't' using like operator
+
+select name from trainee where name like 'T%';
+
+---6 alter a table 
+
+alter table trainee 
+add email varchar(20);
+
+select * from trainee
+
+--- drops a column
+alter table trainee
+drop column email;
+
+--- update a table 
+--- suppose we need to change name tahir to tahir abbas 
+
+update trainee
+set name='Tahir Abbas'
+where id=1;
+
+select * from trainee
+
+-- update multiple values of multiple attributes at a single time 
+
+update trainee
+set salary=12000,email='tahirabbas@gmail.com'
+where id=1
+
+select * from trainee
+
+-- delete a record from the table 
+-- suppose we need to delete sandeep from the records 
+
+delete from trainee where name='Sandeep' and id=5
+
+select * from trainee
+
+
+---- Successfully completed all queries that learned till now -------
