@@ -1,0 +1,332 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 Plotting from pandas Data Frame\par
+import pandas as pd\par
+import pandas as pd\par
+"9.1 car-sales-extended-missing-data.csv"\par
+car_sales = pd.read_csv("9.1 car-sales-extended-missing-data.csv")\par
+car_sales\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 15323.0\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 19943.0\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 28343.0\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 13434.0\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 14043.0\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 32042.0\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 5716.0\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 31570.0\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 4001.0\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 12732.0\par
+1000 rows \'d7 5 columns\par
+\par
+:10\par
+car_sales[:10]\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 15323.0\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 19943.0\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 28343.0\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 13434.0\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 14043.0\par
+5\tab Honda\tab Red\tab 42652.0\tab 4.0\tab 23883.0\par
+6\tab Toyota\tab Blue\tab 163453.0\tab 4.0\tab 8473.0\par
+7\tab Honda\tab White\tab NaN\tab 4.0\tab 20306.0\par
+8\tab NaN\tab White\tab 130538.0\tab 4.0\tab 9374.0\par
+9\tab Honda\tab Blue\tab 51029.0\tab 4.0\tab 26683.0\par
+ts = pd.Series(np.random.randn(1000),\par
+              index = pd.date_range('1-1-2020',periods=1000))\par
+ts\par
+ts.cumsum()   #does cumulative sum ()\par
+ts.plot()\par
+<matplotlib.axes._subplots.AxesSubplot at 0x3119487148>\par
+\par
+car_sales["price"] = car_sales["price"].str.replace('[\\$,\\,\\.]','')\par
+---------------------------------------------------------------------------\par
+KeyError                                  Traceback (most recent call last)\par
+F:\\Softwares\\anaconda\\lib\\site-packages\\pandas\\core\\indexes\\base.py in get_loc(self, key, method, tolerance)\par
+   2645             try:\par
+-> 2646                 return self._engine.get_loc(key)\par
+   2647             except KeyError:\par
+\par
+pandas\\_libs\\index.pyx in pandas._libs.index.IndexEngine.get_loc()\par
+\par
+pandas\\_libs\\index.pyx in pandas._libs.index.IndexEngine.get_loc()\par
+\par
+pandas\\_libs\\hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()\par
+\par
+pandas\\_libs\\hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()\par
+\par
+KeyError: 'price'\par
+\par
+During handling of the above exception, another exception occurred:\par
+\par
+KeyError                                  Traceback (most recent call last)\par
+<ipython-input-22-8d114e1ed4e7> in <module>\par
+----> 1 car_sales["price"] = car_sales["price"].str.replace('[\\$,\\,\\.]','')\par
+\par
+F:\\Softwares\\anaconda\\lib\\site-packages\\pandas\\core\\frame.py in __getitem__(self, key)\par
+   2798             if self.columns.nlevels > 1:\par
+   2799                 return self._getitem_multilevel(key)\par
+-> 2800             indexer = self.columns.get_loc(key)\par
+   2801             if is_integer(indexer):\par
+   2802                 indexer = [indexer]\par
+\par
+F:\\Softwares\\anaconda\\lib\\site-packages\\pandas\\core\\indexes\\base.py in get_loc(self, key, method, tolerance)\par
+   2646                 return self._engine.get_loc(key)\par
+   2647             except KeyError:\par
+-> 2648                 return self._engine.get_loc(self._maybe_cast_indexer(key))\par
+   2649         indexer = self.get_indexer([key], method=method, tolerance=tolerance)\par
+   2650         if indexer.ndim > 1 or indexer.size > 1:\par
+\par
+pandas\\_libs\\index.pyx in pandas._libs.index.IndexEngine.get_loc()\par
+\par
+pandas\\_libs\\index.pyx in pandas._libs.index.IndexEngine.get_loc()\par
+\par
+pandas\\_libs\\hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()\par
+\par
+pandas\\_libs\\hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()\par
+\par
+KeyError: 'price'\par
+\par
+car_sales["Price"]\par
+0       \par
+1       \par
+2       \par
+3       \par
+4       \par
+      ..\par
+995     \par
+996     \par
+997     \par
+998     \par
+999     \par
+Name: Price, Length: 1000, dtype: object\par
+str.replace('[\\$\\,\\.]',''\par
+car_sales["Price"] = car_sales["Price"].astype(str).str.replace('[\\$\\,\\.]','')\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\tab sale_date\tab Total sales\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab\tab 2020-01-01\tab 15323\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab\tab 2020-01-02\tab 1532319943\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab\tab 2020-01-03\tab 153231994328343\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab\tab 2020-01-04\tab 15323199432834313434\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab\tab 2020-01-05\tab 1532319943283431343414043\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab\tab 2022-09-22\tab 1532319943283431343414043238838473203069374266...\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab\tab 2022-09-23\tab 1532319943283431343414043238838473203069374266...\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab\tab 2022-09-24\tab 1532319943283431343414043238838473203069374266...\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab\tab 2022-09-25\tab 1532319943283431343414043238838473203069374266...\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab\tab 2022-09-26\tab 1532319943283431343414043238838473203069374266...\par
+1000 rows \'d7 7 columns\par
+\par
+# now we need to remove the last zero in the price column\par
+\u8203?\par
+car_sales["Price"] = car_sales["Price"].str[:-1]\par
+\u8203?\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\tab sale_date\tab Total sales\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab\tab 2020-01-01\tab 15323\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab\tab 2020-01-02\tab 1532319943\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab\tab 2020-01-03\tab 153231994328343\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab\tab 2020-01-04\tab 15323199432834313434\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab\tab 2020-01-05\tab 1532319943283431343414043\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab\tab 2022-09-22\tab 1532319943283431343414043238838473203069374266...\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab\tab 2022-09-23\tab 1532319943283431343414043238838473203069374266...\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab\tab 2022-09-24\tab 1532319943283431343414043238838473203069374266...\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab\tab 2022-09-25\tab 1532319943283431343414043238838473203069374266...\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab\tab 2022-09-26\tab 1532319943283431343414043238838473203069374266...\par
+1000 rows \'d7 7 columns\par
+\par
+car_sales["sale_date"] = pd.date_range("1/1/2020",periods=len(car_sales))\par
+car_sales["sale_date"] = pd.date_range("1/1/2020",periods=len(car_sales))\par
+car_sales\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\tab sale_date\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 15323\tab 2020-01-01\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 19943\tab 2020-01-02\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 28343\tab 2020-01-03\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 13434\tab 2020-01-04\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 14043\tab 2020-01-05\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 32042\tab 2022-09-22\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 5716\tab 2022-09-23\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 31570\tab 2022-09-24\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 4001\tab 2022-09-25\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 12732\tab 2022-09-26\par
+1000 rows \'d7 6 columns\par
+\par
+car_sales["Total sales"] = car_sales["Price"].cumsum()\par
+car_sales\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\tab sale_date\tab Total sales\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 15323\tab 2020-01-01\tab 15323\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 19943\tab 2020-01-02\tab 1532319943\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 28343\tab 2020-01-03\tab 153231994328343\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 13434\tab 2020-01-04\tab 15323199432834313434\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 14043\tab 2020-01-05\tab 1532319943283431343414043\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 32042\tab 2022-09-22\tab 1532319943283431343414043238838473203069374266...\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 5716\tab 2022-09-23\tab 1532319943283431343414043238838473203069374266...\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 31570\tab 2022-09-24\tab 1532319943283431343414043238838473203069374266...\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 4001\tab 2022-09-25\tab 1532319943283431343414043238838473203069374266...\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 12732\tab 2022-09-26\tab 1532319943283431343414043238838473203069374266...\par
+1000 rows \'d7 7 columns\par
+\par
+total sales is like this way because the the type of price column is string ie str so we need to first convert to int\par
+\par
+From belove everything is correct and so please refer this\par
+car_sales = pd.read_csv("9.1 car-sales-extended-missing-data.csv")\par
+car_sales = pd.read_csv("9.1 car-sales-extended-missing-data.csv")\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 15323.0\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 19943.0\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 28343.0\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 13434.0\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 14043.0\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 32042.0\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 5716.0\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 31570.0\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 4001.0\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 12732.0\par
+1000 rows \'d7 5 columns\par
+\par
+car_sales["Price"] = car_sales["Price"].astype(str).str.replace('[\\$\\,\\.]','')\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 153230\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 199430\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 283430\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 134340\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 140430\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 320420\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 57160\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 315700\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 40010\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 127320\par
+1000 rows \'d7 5 columns\par
+\par
+car_sales["Total sales"] = car_sales["Price"].cumsum()\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\tab Total sales\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 153230\tab 153230\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 199430\tab 153230199430\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 283430\tab 153230199430283430\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 134340\tab 153230199430283430134340\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 140430\tab 153230199430283430134340140430\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 320420\tab 1532301994302834301343401404302388308473020306...\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 57160\tab 1532301994302834301343401404302388308473020306...\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 315700\tab 1532301994302834301343401404302388308473020306...\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 40010\tab 1532301994302834301343401404302388308473020306...\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 127320\tab 1532301994302834301343401404302388308473020306...\par
+1000 rows \'d7 6 columns\par
+\par
+car_sales["Total sales"] = car_sales["Price"].astype(float).cumsum()\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\tab Total sales\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 153230\tab 153230.0\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 199430\tab 352660.0\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 283430\tab 636090.0\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 134340\tab 770430.0\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 140430\tab 910860.0\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 320420\tab 151866550.0\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 57160\tab 151923710.0\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 315700\tab 152239410.0\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 40010\tab 152279420.0\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 127320\tab 152406740.0\par
+1000 rows \'d7 6 columns\par
+\par
+car_sales["Total sales"] = car_sales["Total sales"].astype(str).str.replace('[\\$\\,\\.]', '')\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\tab Total sales\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 153230\tab 1532300\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 199430\tab 3526600\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 283430\tab 6360900\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 134340\tab 7704300\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 140430\tab 9108600\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 320420\tab 1518665500\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 57160\tab 1519237100\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 315700\tab 1522394100\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 40010\tab 1522794200\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 127320\tab 1524067400\par
+1000 rows \'d7 6 columns\par
+\par
+car_sales["Total sales"] = car_sales["Total sales"].str[:-1]\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\tab Total sales\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 153230\tab 153230\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 199430\tab 352660\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 283430\tab 636090\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 134340\tab 770430\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 140430\tab 910860\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 320420\tab 151866550\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 57160\tab 151923710\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 315700\tab 152239410\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 40010\tab 152279420\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 127320\tab 152406740\par
+1000 rows \'d7 6 columns\par
+\par
+car_sales["sale_date"] = pd.date_range("1/1/2020",periods=len(car_sales))\par
+car_sales\par
+Make\tab Colour\tab Odometer (KM)\tab Doors\tab Price\tab Total sales\tab sale_date\par
+0\tab Honda\tab White\tab 35431.0\tab 4.0\tab 153230\tab 153230\tab 2020-01-01\par
+1\tab BMW\tab Blue\tab 192714.0\tab 5.0\tab 199430\tab 352660\tab 2020-01-02\par
+2\tab Honda\tab White\tab 84714.0\tab 4.0\tab 283430\tab 636090\tab 2020-01-03\par
+3\tab Toyota\tab White\tab 154365.0\tab 4.0\tab 134340\tab 770430\tab 2020-01-04\par
+4\tab Nissan\tab Blue\tab 181577.0\tab 3.0\tab 140430\tab 910860\tab 2020-01-05\par
+...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\tab ...\par
+995\tab Toyota\tab Black\tab 35820.0\tab 4.0\tab 320420\tab 151866550\tab 2022-09-22\par
+996\tab NaN\tab White\tab 155144.0\tab 3.0\tab 57160\tab 151923710\tab 2022-09-23\par
+997\tab Nissan\tab Blue\tab 66604.0\tab 4.0\tab 315700\tab 152239410\tab 2022-09-24\par
+998\tab Honda\tab White\tab 215883.0\tab 4.0\tab 40010\tab 152279420\tab 2022-09-25\par
+999\tab Toyota\tab Blue\tab 248360.0\tab 4.0\tab 127320\tab 152406740\tab 2022-09-26\par
+1000 rows \'d7 7 columns\par
+\par
+car_sales.plot(x="sale_date",\par
+               y="Total sales")\par
+---------------------------------------------------------------------------\par
+TypeError                                 Traceback (most recent call last)\par
+<ipython-input-116-5a7cdcf41592> in <module>\par
+      1 car_sales.plot(x="sale_date",\par
+----> 2                y="Total sales")\par
+\par
+F:\\Softwares\\anaconda\\lib\\site-packages\\pandas\\plotting\\_core.py in __call__(self, *args, **kwargs)\par
+    845                     data.columns = label_name\par
+    846 \par
+--> 847         return plot_backend.plot(data, kind=kind, **kwargs)\par
+    848 \par
+    849     __call__.__doc__ = __doc__\par
+\par
+F:\\Softwares\\anaconda\\lib\\site-packages\\pandas\\plotting\\_matplotlib\\__init__.py in plot(data, kind, **kwargs)\par
+     59             kwargs["ax"] = getattr(ax, "left_ax", ax)\par
+     60     plot_obj = PLOT_CLASSES[kind](data, **kwargs)\par
+---> 61     plot_obj.generate()\par
+     62     plot_obj.draw()\par
+     63     return plot_obj.result\par
+\par
+F:\\Softwares\\anaconda\\lib\\site-packages\\pandas\\plotting\\_matplotlib\\core.py in generate(self)\par
+    259     def generate(self):\par
+    260         self._args_adjust()\par
+--> 261         self._compute_plot_data()\par
+    262         self._setup_subplots()\par
+    263         self._make_plot()\par
+\par
+F:\\Softwares\\anaconda\\lib\\site-packages\\pandas\\plotting\\_matplotlib\\core.py in _compute_plot_data(self)\par
+    408         # no non-numeric frames or series allowed\par
+    409         if is_empty:\par
+--> 410             raise TypeError("no numeric data to plot")\par
+    411 \par
+    412         # GH25587: cast ExtensionArray of pandas (IntegerArray, etc.) to\par
+\par
+TypeError: no numeric data to plot\par
+\par
+\u8203?\par
+}
+ 
